@@ -1,0 +1,382 @@
+        :root {
+            --main-color: #8B0000; /* Vermelho/marrom escuro */
+            --secondary-color: #000;
+            --glitch-effect: 0px;
+        }
+
+        body {
+            background-image: url('assets/fundovhs.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            color: var(--main-color);
+            font-family: 'VCR OSD MONO';
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Overlay de linhas de varredura */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.3) 1px,
+                    transparent 1px
+                );
+            background-size: 100% 2px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100%); }
+        }
+
+        /* Efeito de curvatura CRT */
+        .crt-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1001;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0,0,0,0) 0%,
+                rgba(0,0,0,0) 60%,
+                rgba(0,0,0,0.1) 100%
+            );
+        }
+
+        @font-face {
+            font-family: 'VCR OSD MONO';
+            src: url('assets/VCR_OSD_MONO_1.001.ttf') format('truetype');
+        }
+
+        /* Efeito de glitch */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+        .glitch::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        #leta {
+            max-height: 80px;
+            width: auto;
+            margin: 0 20px;
+            filter: drop-shadow(0 0 5px var(--main-color));
+            transition: all 0.3s ease;
+        }
+
+        #leta:hover {
+            filter: drop-shadow(0 0 10px var(--main-color));
+        }
+
+        #ship {
+            border-radius: 5px;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border: 1px solid var(--main-color);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        #ship:hover {
+            transform: scale(1.02);
+        }
+
+        #brigde {
+            border-radius: 5px;
+            width: 100%;
+            max-width: 1400px;
+            height: auto;
+            border: 1px solid var(--main-color);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        #buta {
+            background-color: var(--secondary-color);
+            border: 2px solid var(--main-color);
+            color: var(--main-color);
+            width: 90%;
+            max-width: 950px;
+            height: 100px;
+            font-size: 3.5em;
+            border-radius: 10px;
+            font-family: 'VCR OSD MONO';
+            margin: 20px auto;
+            display: block;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #buta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(139, 0, 0, 0.4),
+                transparent
+            );
+            transition: all 0.5s;
+        }
+
+        #buta:hover {
+            background-color: var(--main-color);
+            color: var(--secondary-color);
+            box-shadow: 0 0 20px var(--main-color);
+        }
+
+        #buta:hover::after {
+            left: 100%;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .button-link, .button-link2 {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--main-color);
+            color: var(--main-color);
+            width: 100px;
+            height: 50px;
+            font-size: 1.1em;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button-link::before, .button-link2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(139, 0, 0, 0.4),
+                transparent
+            );
+            transition: all 0.5s;
+        }
+
+        .button-link:hover, .button-link2:hover {
+            background-color: var(--main-color);
+            color: var(--secondary-color);
+            box-shadow: 0 0 10px var(--main-color);
+        }
+
+        .button-link:hover::before, .button-link2:hover::before {
+            left: 100%;
+        }
+
+        .Obj, .Obj2, .Obj3 {
+            border-radius: 5px;
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--main-color);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        .frase1 {
+            color: var(--main-color);
+            font-family: 'VCR OSD MONO';
+            font-size: 1.3em;
+            text-align: justify;
+            margin: 20px;
+            padding: 0 15px;
+        }
+
+        .frase2 {
+            color: var(--main-color);
+            font-family: 'VCR OSD MONO';
+            font-size: 1.3em;
+            text-align: justify;
+            margin: 20px;
+            padding: 0 15px;
+        }
+
+        .frase3 {
+            color: var(--main-color);
+            font-family: 'VCR OSD MONO';
+            font-size: 2.5em;
+            text-align: center;
+            margin: 30px 20px;
+            padding: 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .frase3::before, .frase3::after {
+            content: '//';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        .frase3::before {
+            left: -10px;
+        }
+
+        .frase3::after {
+            right: -10px;
+        }
+
+        /* Animação de flicker */
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 22%, 24%, 55% {
+                opacity: 0.5;
+            }
+        }
+
+        .flicker {
+            animation: flicker 3s infinite;
+        }
+
+        /* Media Queries para telas menores */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            #leta {
+                max-height: 60px;
+                margin: 10px 0;
+            }
+
+            #buta {
+                font-size: 2.5em;
+                width: 90%;
+                height: 80px;
+            }
+
+            .frase1, .frase2, .frase3 {
+                font-size: 1.1em;
+                margin: 15px 10px;
+            }
+
+            .frase3 {
+                font-size: 1.8em;
+            }
+
+            #brigde {
+                width: 100%;
+            }
+
+            #ship {
+                width: 90%;
+            }
+
+            .button-link, .button-link2 {
+                width: 90px;
+                height: 45px;
+                font-size: 0.9em;
+                line-height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #buta {
+                font-size: 1.8em;
+                width: 90%;
+                height: 70px;
+            }
+
+            .frase1, .frase2 {
+                font-size: 1em;
+            }
+
+            .frase3 {
+                font-size: 1.5em;
+            }
+
+            #leta {
+                max-height: 50px;
+            }
+
+            #ship {
+                width: 95%;
+            }
+
+            .button-link, .button-link2 {
+                width: 80px;
+                height: 40px;
+                font-size: 0.8em;
+                line-height: 40px;
+            }
+        }
