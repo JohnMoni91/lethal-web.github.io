@@ -1,173 +1,460 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lethal Company</title>
-    
-    <style type="text/css">
-        body {
-            background-image: url('assets/fundovhs.gif');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center center;
-            color: brown; 
-            font-family: 'VCR OSD MONO';
-        }
-        @font-face {
-            font-family: 'VCR OSD MONO';
-            src: url('assets/VCR_OSD_MONO_1.001.ttf') format('truetype');
-        }
-        #ship {
-            border-radius: 5px;
-            width: 500px;
-            height: 300px;
-        }
-        #brigde {
-            border-radius: 5px;
-            width: 1400px;
-            height: 720px;
-        }
-        #buta {
-            background-color: black;
-            border-color: brown;
-            color: brown;
-            font-style: normal;
-            width: 950px;
-            height: 100px;
-            font-size: 5.0em;
-            border-radius: 10px;
-            font-family: 'VCR OSD MONO';
-        }
-        #leta {
-            width: 50%;
-            height: 50%;
-        }
-        #butahomer {
-            background-color: black;
-            border-color: brown;
-            color: brown;
-            font-style: normal;
-            width: 100px;
-            height: 50px;
-            font-size: large;
-            border-radius: 10px;
-        }
-        .button-link {
-            display: inline-block;
-            background-color: black;
-            border: 1px solid brown;
-            color: brown;
-            font-style: normal;
-            width: 100px;
-            height: 50px;
-            font-size: large;
-            text-align: center;
-            line-height: 50px; 
-            border-radius: 10px;
-            text-decoration: none; 
-        }
-        .button-link:hover {
-            background-color: brown;
-            color: black;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Lethal Company</title>
+  <style>
+    @font-face {
+      font-family: 'VCR OSD MONO';
+      src: url('assets/VCR_OSD_MONO_1.001.ttf') format('truetype');
+    }
 
-        .button-link2 {
-            display: inline-block;
-            background-color: black;
-            border: 1px solid brown;
-            color: brown;
-            font-style: normal;
-            width: 100px;
-            height: 50px;
-            font-size: large;
-            text-align: center;
-            line-height: 50px; 
-            border-radius: 10px;
-            text-decoration: none; 
-        }
-        .button-link2:hover {
-            background-color: brown;
-            color: black;
-        }
-        .Obj {
-            border-radius: 5px;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .frase1 {
-            color: brown;
-            font-family: 'VCR OSD MONO';
-            font-size: 1.3em;
-            text-align: justify;
-        }
-        .frase2 {
-            color: brown;
-            font-family: 'VCR OSD MONO';
-            font-size: 1.3em; 
-            text-align: justify;
-        }
-        .frase3 {
-            color: brown;
-            font-family: 'VCR OSD MONO';
-            font-size: 2.5em; 
-            text-align: justify;
-            text-align: center;
-        }
-        .Obj2 {
-            border-radius: 5px;
-            width: 100%;
-            height: 100%;
-        }
-        .Obj3 {
-            border-radius: 5px;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    :root {
+      --main-color: #8B0000;
+      --secondary-color: #000;
+      --glitch-effect: 0px;
+    }
+
+    body {
+      background: url('assets/fundovhs.gif') center/cover fixed;
+      color: var(--main-color);
+      font-family: 'VCR OSD MONO', monospace;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* efeito Glitch */
+    .glitch {
+      position: relative;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+    }
+    .glitch::before {
+      color: #0ff;
+      z-index: -1;
+      animation: glitch-effect 3s infinite;
+    }
+    .glitch::after {
+      color: #f0f;
+      z-index: -2;
+      animation: glitch-effect 2s infinite reverse;
+    }
+
+    @keyframes glitch-effect {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 3px); }
+      40% { transform: translate(-3px, -3px); }
+      60% { transform: translate(3px, 3px); }
+      80% { transform: translate(3px, -3px); }
+      100% { transform: translate(0); }
+    }
+
+    /* Scanlines overlay */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(
+          rgba(0, 0, 0, 0.3) 1px, 
+          transparent 1px
+        );
+      background-size: 100% 2px;
+      pointer-events: none;
+      z-index: 1000;
+      animation: scanline 8s linear infinite;
+    }
+
+    @keyframes scanline {
+      from { transform: translateY(0); }
+      to { transform: translateY(-100%); }
+    }
+
+    /* Efeito CRT */
+    .crt-effect {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1001;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0) 60%,
+        rgba(0,0,0,0.1) 100%
+      );
+    }
+
+    header, footer {
+      text-align: center;
+      padding: 15px;
+      position: relative;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo img {
+      max-width: 100%;
+      height: auto;
+      max-height: 80px;
+      filter: drop-shadow(0 0 5px var(--main-color));
+      transition: all 0.3s ease;
+    }
+
+    .logo img:hover {
+      filter: drop-shadow(0 0 10px var(--main-color));
+    }
+
+    .button-link, .button-link2 {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      border: 1px solid var(--main-color);
+      color: var(--main-color);
+      padding: 0 20px;
+      height: 50px;
+      font-size: 1.1em;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin: 5px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button-link::before, .button-link2::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 0, 0, 0.4),
+        transparent
+      );
+      transition: all 0.5s;
+    }
+
+    .button-link:hover, .button-link2:hover {
+      background-color: var(--main-color);
+      color: var(--secondary-color);
+      box-shadow: 0 0 10px var(--main-color);
+    }
+
+    .button-link:hover::before, .button-link2:hover::before {
+      left: 100%;
+    }
+
+    .main-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin: 30px 0;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: relative;
+      display: inline-block;
+      padding: 0 20px;
+    }
+
+    h1::before, h1::after {
+      content: '//';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+    }
+
+    h1::before {
+      left: -10px;
+    }
+
+    h1::after {
+      right: -10px;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 30px 0;
+      border: 2px solid var(--main-color);
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .main-btn {
+      background-color: var(--secondary-color);
+      border: 2px solid var(--main-color);
+      color: var(--main-color);
+      width: 90%;
+      max-width: 600px;
+      height: 80px;
+      font-size: 2em;
+      border-radius: 5px;
+      font-family: 'VCR OSD MONO';
+      cursor: pointer;
+      margin: 30px auto;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(139, 0, 0, 0.4),
+        transparent
+      );
+      transition: all 0.5s;
+    }
+
+    .main-btn:hover {
+      background-color: var(--main-color);
+      color: var(--secondary-color);
+      box-shadow: 0 0 20px var(--main-color);
+    }
+
+    .main-btn:hover::after {
+      left: 100%;
+    }
+
+    .center-img {
+      display: block;
+      margin: 40px auto;
+      max-width: 90%;
+      height: auto;
+      border: 1px solid var(--main-color);
+      box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .center-img:hover {
+      transform: scale(1.02);
+    }
+
+    footer {
+      color: var(--main-color);
+      font-size: 0.9em;
+      padding: 20px;
+      position: relative;
+    }
+
+    .github-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--main-color);
+      text-decoration: none;
+      position: relative;
+      padding: 5px 10px;
+    }
+
+    .github-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--main-color);
+      transition: width 0.3s ease;
+    }
+
+    .github-link:hover::after {
+      width: 100%;
+    }
+
+    .audio-player button {
+      background: var(--main-color);
+      color: black;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: 'VCR OSD MONO';
+    }
+
+    /* Ajuste responsivel */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .logo img {
+        max-height: 60px;
+      }
+
+      .main-btn {
+        font-size: 1.5em;
+        height: 70px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      .video-container {
+        margin: 20px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .main-btn {
+        font-size: 1.2em;
+        height: 60px;
+      }
+
+      .button-link, .button-link2 {
+        height: 40px;
+        line-height: 40px;
+        font-size: 0.9em;
+      }
+    }
+
+    /* Animação de flicker */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.5;
+      }
+    }
+
+    .flicker {
+      animation: flicker 3s infinite;
+    }
+  </style>
 </head>
-
 <body>
-    <table border="0" width="500" align="center">
-        <tr>
-            <td><a href="index.html" class="button-link">Home</a></td>
-            <td><center><img id="leta" src="assets/Lethal_Company.png"></center></td>
-            <td><a href="about.html" class="button-link2">About</a></td>
-        </tr>
-    </table>
-    <hr color="brown">
+  <div class="crt-effect"></div>
+  
+  <header class="flicker">
+    <div class="nav">
+      <a href="index.html" class="button-link glitch" data-text="Home">Home</a>
+      <div class="logo">
+        <img src="assets/Lethal_Company.png" alt="Lethal Company Logo" />
+      </div>
+      <a href="about.html" class="button-link2 glitch" data-text="About">About</a>
+    </div>
+  </header>
 
-    <center><h1>WORK WITH US!</h1></center>
+  <hr color="brown" />
 
-    <table border="0" width="1100" align="center">
-        <tr>
-            <td>
-                <center><video width="1366" height="560" autoplay controls>
-                    <source src="assets/videoplayback.mp4" type="video/mp4">
-                </video></center>
-            </td>
-        </tr>
-        <tr>
-            <td><center><img src="assets/file.png"></center></td>
-        </tr>
-        <tr>
-            <td><center><h1>WE NEED YOU!</h1></center></td>
-        </tr>
-        <tr>
-            <td><center><a href="https://store.steampowered.com/app/1966720/Lethal_Company/"><button id="buta">BUY NOW!</button></a></center></td>
-        </tr>
-    </table>
-    
-    <br>
-    <hr color="brown">
-    <footer>
-        <table border="0" width="1100" align="center">
-            <tr>
-                <td><center>LETHAL COMPANY © ZEEKERSS</center></td>
-            </tr>
-        </table>
-    </footer>
+  <div class="main-content">
+    <h1 class="glitch" data-text="WORK WITH US!">WORK WITH US!</h1>
+
+    <div class="video-container">
+      <video autoplay loop muted playsinline>
+        <source src="assets/videoplayback.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <img src="assets/file.png" alt="File Image" class="center-img flicker" />
+
+    <h1 class="glitch" data-text="WE NEED YOU!">WE NEED YOU!</h1>
+
+    <div style="text-align: center;">
+      <a href="https://store.steampowered.com/app/1966720/Lethal_Company/" target="_blank">
+        <button class="main-btn glitch" data-text="BUY NOW!">BUY NOW!</button>
+      </a>
+    </div>
+  </div>
+
+  <hr color="brown" />
+
+  <footer class="flicker">
+    <p>LETHAL COMPANY © ZEEKERSS</p>
+    <a href="https://github.com/JohnMoni91" class="github-link" target="_blank">JohnMoni91 - GitHub´s</a>
+  </footer>
+
+  <script>
+
+    // efeitos de gltich aleatorio
+    setInterval(() => {
+      document.documentElement.style.setProperty('--glitch-effect', `${Math.random() * 3}px`);
+    }, 3000);
+
+    // Adicionando efeitos de glitch
+    setInterval(() => {
+      const noise = document.createElement('div');
+      noise.style.position = 'fixed';
+      noise.style.top = '0';
+      noise.style.left = '0';
+      noise.style.width = '100%';
+      noise.style.height = '100%';
+      noise.style.background = 'url("assets/vhs-noise.gif")';
+      noise.style.opacity = '0.1';
+      noise.style.zIndex = '999';
+      noise.style.pointerEvents = 'none';
+      noise.style.animation = 'flicker 0.3s linear';
+      document.body.appendChild(noise);
+      
+      setTimeout(() => {
+        noise.style.opacity = '0';
+        setTimeout(() => noise.remove(), 1000);
+      }, 300);
+    }, 10000);
+  </script>
 </body>
 </html>
